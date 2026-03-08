@@ -96,7 +96,7 @@
 | *Syntax* 3+m| ai.text.embed(resource, provider, configuration = {}) :: VECTOR
 | *Description* 3+a| Encode a given resource as a vector using the named provider.
 .4+| *Input arguments* | *Name* | *Type* | *Description*
-| `resources` | `STRING` | The object to transform into an embedding.
+| `resource` | `STRING` | The object to transform into an embedding.
 | `provider`  | `STRING` | The identifier of the provider: ("vertexai", "openai", "azure-openai", "bedrock-titan").
 | `configuration` | `MAP` | The provider specific settings.
 2+| *Returns* | `VECTOR` | The generated vector embedding for the resource.
@@ -108,8 +108,8 @@
 == ai.text.embedBatch()
 
 |===
-| *Syntax* 3+m| ai.text.embedBatch(resource, provider, configuration = {}) :: (index, resource, vector)
-| *Description* 3+a| Encode a given resource as a vector using the named provider.
+| *Syntax* 3+m| ai.text.embedBatch(resources, provider, configuration = {}) :: (index, resource, vector)
+| *Description* 3+a| Encode a given batch of resources as vectors using the named provider.
 .4+| *Input arguments* | *Name* | *Type* | *Description*
 | `resources` | `LIST<STRING>` | The objects to transform into embeddings.
 | `provider`  | `STRING` | The identifier of the provider: ("vertexai", "openai", "azure-openai", "bedrock-titan").
@@ -144,7 +144,7 @@
 | *Syntax* 3+m| genai.vector.encode(resource, provider, configuration = {}) :: ANY
 | *Description* 3+a| Encode a given resource as a vector using the named provider.
 .4+| *Input arguments* | *Name* | *Type* | *Description*
-| `resources` | `LIST<STRING>` | The object to transform into an embedding.
+| `resource` | `STRING` | The object to transform into an embedding.
 | `provider` | `STRING` | The identifier of the provider: ("VertexAI", "OpenAI", "AzureOpenAI", "Bedrock").
 | `configuration` | `MAP` | The provider specific settings.
 2+| *Returns* | `ANY` | The generated vector embedding for the resource.
@@ -159,8 +159,8 @@
 | *Syntax* 3+m| genai.vector.encodeBatch(resources, provider, configuration = {}) :: (index, resource, vector)
 | *Description* 3+a| Encode a given batch of resources as vectors using the named provider.
 .4+| *Input arguments* | *Name* | *Type* | *Description*
-| `resources` | `LIST<STRING>` | The object to transform into an embedding.
-| `provider` | `STRING` | An optional list of selectors to filter out changes.
+| `resources` | `LIST<STRING>` | The objects to transform into embeddings.
+| `provider` | `STRING` | The identifier of the provider: ("VertexAI", "OpenAI", "AzureOpenAI", "Bedrock").
 | `configuration` | `MAP` | The provider specific settings.
 .4+| *Return arguments* | *Name* | *Type* | *Description*
 | `index` | `INTEGER` | The index of the corresponding element in the input list.
@@ -179,6 +179,6 @@
 .5+| *Return arguments* | *Name* | *Type* | *Description*
 | `name` | `STRING` | The name of the GenAI provider.
 | `requiredConfigType` | `STRING` | The signature of the required config map.
-| `optionalConfigType` | `STRING` | "The signature of the optional config map.
+| `optionalConfigType` | `STRING` | The signature of the optional config map.
 | `defaultConfig` | `MAP` | The default values for the GenAI provider.
 |===
