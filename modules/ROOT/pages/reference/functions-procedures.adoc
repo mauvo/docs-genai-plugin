@@ -1,5 +1,17 @@
 = Functions and procedures
 
+[NOTE]
+====
+Functions are used in expressions such as `RETURN`, `WITH`, and `SET`.
+Procedures are invoked with `CALL ... YIELD`.
+For more information, see link:https://neo4j.com/docs/cypher-manual/current/functions/[Cypher Manual -> Functions] and link:https://neo4j.com/docs/cypher-manual/current/clauses/call/[Cypher Manual -> CALL procedure].
+====
+
+[NOTE]
+====
+Entries marked `Cypher 25` are only available when the query runs with Cypher 25.
+For more information, see link:https://neo4j.com/docs/cypher-manual/current/queries/select-version/[Cypher Manual -> Select Cypher version].
+====
 
 [[ai-text-completion]]
 [role=label--function label--new-2025.11 label--Cypher-25]
@@ -14,6 +26,12 @@
 2+| *Returns*                            | `STRING` | Generated text based on the provided prompt.
 |===
 
+.Example
+[source,cypher]
+----
+RETURN ai.text.completion('Write a one-sentence movie summary.', 'openai', {token: $openaiToken, model: 'gpt-4.1-mini'}) AS completion
+----
+
 
 [[ai-text-completion-providers]]
 [role=label--procedure label--new-2025.11 label--Cypher-25]
@@ -27,6 +45,14 @@
 |                         `optionalConfigType` | `STRING` | The signature of the optional configuration options.
 |                         `defaultConfig`      | `MAP`    | Default configuration option values.
 |===
+
+.Example
+[source,cypher]
+----
+CALL ai.text.completion.providers()
+YIELD name, requiredConfigType
+RETURN name, requiredConfigType
+----
 
 
 [[ai-text-completion-with-structure]]
@@ -43,6 +69,17 @@
 2+| *Returns*                            | `MAP`    | A structured map conforming to the provided schema.
 |===
 
+.Example
+[source,cypher]
+----
+RETURN ai.text.structuredCompletion(
+  'Extract the name and role from "Alice is an engineer".',
+  {type: 'object', properties: {name: {type: 'string'}, role: {type: 'string'}}},
+  'openai',
+  {token: $openaiToken, model: 'gpt-4.1-mini'}
+) AS result
+----
+
 
 [[ai-text-completion-with-structure-providers]]
 [role=label--procedure label--new-2026.02 label--Cypher-25]
@@ -56,6 +93,14 @@
 |                         `optionalConfigType` | `STRING` | The signature of the optional configuration options.
 |                         `defaultConfig`      | `MAP`    | Default configuration option values.
 |===
+
+.Example
+[source,cypher]
+----
+CALL ai.text.structuredCompletion.providers()
+YIELD name, requiredConfigType
+RETURN name, requiredConfigType
+----
 
 
 [[ai-text-chat]]
@@ -73,6 +118,12 @@
 
 |===
 
+.Example
+[source,cypher]
+----
+RETURN ai.text.chat('Hello', null, 'openai', {token: $openaiToken, model: 'gpt-4.1-mini'}) AS chat
+----
+
 
 [[ai-text-chat-providers]]
 [role=label--procedure label--new-2025.12 label--Cypher-25]
@@ -86,6 +137,14 @@
 |                         `optionalConfigType` | `STRING` | The signature of the optional configuration options.
 |                         `defaultConfig`      | `MAP`    | Default configuration option values.
 |===
+
+.Example
+[source,cypher]
+----
+CALL ai.text.chat.providers()
+YIELD name, requiredConfigType
+RETURN name, requiredConfigType
+----
 
 
 [[ai-text-embed]]
@@ -101,6 +160,12 @@
 | `configuration` | `MAP` | The provider specific settings.
 2+| *Returns* | `VECTOR` | The generated vector embedding for the resource.
 |===
+
+.Example
+[source,cypher]
+----
+RETURN ai.text.embed('The Matrix is a science fiction film.', 'openai', {token: $openaiToken, model: 'text-embedding-3-small'}) AS embedding
+----
 
 
 [[ai-text-embed-batch]]
@@ -120,6 +185,14 @@
 | `vector` | `VECTOR` | The generated vector embedding for the resource.
 |===
 
+.Example
+[source,cypher]
+----
+CALL ai.text.embedBatch(['The Matrix', 'The Matrix Reloaded'], 'openai', {token: $openaiToken, model: 'text-embedding-3-small'})
+YIELD index, resource, vector
+RETURN index, resource, vector
+----
+
 
 [[ai-text-embed-providers]]
 [role=label--procedure label--new-2025.11 label--Cypher-25]
@@ -135,6 +208,14 @@
 | `defaultConfig` | `MAP` | The default values for the GenAI provider.
 |===
 
+.Example
+[source,cypher]
+----
+CALL ai.text.embed.providers()
+YIELD name, requiredConfigType
+RETURN name, requiredConfigType
+----
+
 
 [[genai-vector-encode]]
 [role=label--function label--deprecated-Cypher-25]
@@ -149,6 +230,12 @@
 | `configuration` | `MAP` | The provider specific settings.
 2+| *Returns* | `ANY` | The generated vector embedding for the resource.
 |===
+
+.Example
+[source,cypher]
+----
+RETURN genai.vector.encode('The Matrix is a science fiction film.', 'OpenAI', {token: $openaiToken, model: 'text-embedding-3-small'}) AS embedding
+----
 
 
 [[genai-vector-encode-batch]]
@@ -168,6 +255,14 @@
 | `vector` | `ANY` | The generated vector embedding for the resource.
 |===
 
+.Example
+[source,cypher]
+----
+CALL genai.vector.encodeBatch(['The Matrix', 'The Matrix Reloaded'], 'OpenAI', {token: $openaiToken, model: 'text-embedding-3-small'})
+YIELD index, resource, vector
+RETURN index, resource, vector
+----
+
 
 [[genai-vector-list-encoding-providers]]
 [role=label--procedure label--deprecated-Cypher-25]
@@ -182,3 +277,11 @@
 | `optionalConfigType` | `STRING` | "The signature of the optional config map.
 | `defaultConfig` | `MAP` | The default values for the GenAI provider.
 |===
+
+.Example
+[source,cypher]
+----
+CALL genai.vector.listEncodingProviders()
+YIELD name, requiredConfigType
+RETURN name, requiredConfigType
+----
