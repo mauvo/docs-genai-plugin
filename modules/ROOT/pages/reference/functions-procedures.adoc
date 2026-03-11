@@ -362,7 +362,7 @@ Use xref:reference/functions-procedures.adoc#ai-text-embed-providers[`ai.text.em
 .5+| *Return arguments* | *Name* | *Type* | *Description*
 | `name` | `STRING` | The name of the GenAI provider.
 | `requiredConfigType` | `STRING` | The signature of the required config map.
-| `optionalConfigType` | `STRING` | "The signature of the optional config map.
+| `optionalConfigType` | `STRING` | The signature of the optional config map.
 | `defaultConfig` | `MAP` | The default values for the GenAI provider.
 |===
 
