@@ -20,21 +20,7 @@ If your database’s default language is Cypher 5, prepend the query with CYPHER
 2+| *Returns*                            | `STRING` | Generated text based on the provided prompt.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-WITH 'YOUR_OPENAI_API_KEY' AS openaiToken  // replace with a real token
-WITH {
-  token: openaiToken,
-  model: 'gpt-5-nano'
-} AS conf
-RETURN ai.text.completion(
-  'Write a one-sentence tagline for a graph database.',
-  'openai',
-  conf
-) AS text;
-----
+For usage examples, see xref:generate-text.adoc#generate-once[Generate text from prompt].
 
 
 [[ai-text-completion-providers]]
@@ -50,14 +36,7 @@ RETURN ai.text.completion(
 |                         `defaultConfig`      | `MAP`    | Default configuration option values.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-CALL ai.text.completion.providers()
-YIELD name, requiredConfigType, optionalConfigType, defaultConfig
-RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
-----
+For provider details and examples, see xref:generate-text.adoc#providers[Generate text -> Providers].
 
 
 [[ai-text-completion-with-structure]]
@@ -74,33 +53,7 @@ RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
 2+| *Returns*                            | `MAP`    | A structured map conforming to the provided schema.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-WITH
-  'YOUR_OPENAI_API_KEY' AS openaiToken,  // replace with a real token
-  {
-    type: 'object',
-    properties: {
-      answer: {type: 'string'}
-    },
-    required: ['answer'],
-    additionalProperties: false
-  } AS schema
-WITH
-  schema,
-  {
-    token: openaiToken,
-    model: 'gpt-5-nano'
-  } AS conf
-RETURN ai.text.structuredCompletion(
-  'Answer in one short sentence: what is Cypher?',
-  schema,
-  'openai',
-  conf
-) AS result;
-----
+For usage examples, see xref:generate-structured-output.adoc[Generate structured output].
 
 
 [[ai-text-completion-with-structure-providers]]
@@ -116,14 +69,7 @@ RETURN ai.text.structuredCompletion(
 |                         `defaultConfig`      | `MAP`    | Default configuration option values.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-CALL ai.text.structuredCompletion.providers()
-YIELD name, requiredConfigType, optionalConfigType, defaultConfig
-RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
-----
+For provider details and examples, see xref:generate-structured-output.adoc#providers[Generate structured output -> Providers].
 
 
 [[ai-text-chat]]
@@ -141,22 +87,7 @@ RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
 
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-WITH 'YOUR_OPENAI_API_KEY' AS openaiToken  // replace with a real token
-WITH {
-  token: openaiToken,
-  model: 'gpt-5-nano'
-} AS conf
-RETURN ai.text.chat(
-  'Say hello in five words or fewer.',
-  null,      // null starts a new chat
-  'openai',
-  conf
-) AS chat;
-----
+For usage examples, see xref:generate-text.adoc#chat-with-context[Chat with context].
 
 
 [[ai-text-chat-providers]]
@@ -172,14 +103,7 @@ RETURN ai.text.chat(
 |                         `defaultConfig`      | `MAP`    | Default configuration option values.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-CALL ai.text.chat.providers()
-YIELD name, requiredConfigType, optionalConfigType, defaultConfig
-RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
-----
+For provider details and examples, see xref:generate-text.adoc#providers[Generate text -> Providers].
 
 
 [[ai-text-embed]]
@@ -196,21 +120,7 @@ RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
 2+| *Returns* | `VECTOR` | The generated vector embedding for the resource.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-WITH 'YOUR_OPENAI_API_KEY' AS openaiToken  // replace with a real token
-WITH {
-  token: openaiToken,
-  model: 'text-embedding-3-small'
-} AS conf
-RETURN ai.text.embed(
-  'Neo4j works well for connected data.',
-  'openai',
-  conf
-) AS embedding;
-----
+For usage examples, see xref:embeddings.adoc#single-embedding[Generate and store a single embedding].
 
 
 [[ai-text-embed-batch]]
@@ -230,23 +140,7 @@ RETURN ai.text.embed(
 | `vector` | `VECTOR` | The generated vector embedding for the resource.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-WITH
-  'YOUR_OPENAI_API_KEY' AS openaiToken,  // replace with a real token
-  ['graph database', 'vector search'] AS texts
-WITH
-  texts,
-  {
-    token: openaiToken,
-    model: 'text-embedding-3-small'
-  } AS conf
-CALL ai.text.embedBatch(texts, 'openai', conf)
-YIELD index, resource, vector
-RETURN index, resource, vector;
-----
+For usage examples, see xref:embeddings.adoc#multiple-embeddings[Generate and store a batch of embeddings].
 
 
 [[ai-text-embed-providers]]
@@ -263,14 +157,7 @@ RETURN index, resource, vector;
 | `defaultConfig` | `MAP` | The default values for the GenAI provider.
 |===
 
-.Example
-[source,cypher]
-----
-CYPHER 25 // Keep this prefix if the database default is Cypher 5.
-CALL ai.text.embed.providers()
-YIELD name, requiredConfigType, optionalConfigType, defaultConfig
-RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
-----
+For provider details and examples, see xref:embeddings.adoc#providers[Embeddings -> Providers].
 
 
 [[genai-vector-encode]]
@@ -291,21 +178,7 @@ Use xref:reference/functions-procedures.adoc#ai-text-embed[`ai.text.embed()`] in
 2+| *Returns* | `ANY` | The generated vector embedding for the resource.
 |===
 
-.Example
-[source,cypher]
-----
-// Legacy callable, deprecated in Cypher 25. Prefer ai.text.embed() for new examples.
-WITH 'YOUR_OPENAI_API_KEY' AS openaiToken  // replace with a real token
-WITH {
-  token: openaiToken,
-  model: 'text-embedding-ada-002'
-} AS conf
-RETURN genai.vector.encode(
-  'Neo4j works well for connected data.',
-  'OpenAI',
-  conf
-) AS embedding;
-----
+For current usage examples, see xref:embeddings.adoc#single-embedding[Generate and store a single embedding].
 
 
 [[genai-vector-encode-batch]]
@@ -329,23 +202,7 @@ Use xref:reference/functions-procedures.adoc#ai-text-embed-batch[`ai.text.embedB
 | `vector` | `ANY` | The generated vector embedding for the resource.
 |===
 
-.Example
-[source,cypher]
-----
-// Legacy callable, deprecated in Cypher 25. Prefer ai.text.embedBatch() for new examples.
-WITH
-  'YOUR_OPENAI_API_KEY' AS openaiToken,  // replace with a real token
-  ['graph database', 'vector search'] AS texts
-WITH
-  texts,
-  {
-    token: openaiToken,
-    model: 'text-embedding-ada-002'
-  } AS conf
-CALL genai.vector.encodeBatch(texts, 'OpenAI', conf)
-YIELD index, resource, vector
-RETURN index, resource, vector;
-----
+For current usage examples, see xref:embeddings.adoc#multiple-embeddings[Generate and store a batch of embeddings].
 
 
 [[genai-vector-list-encoding-providers]]
@@ -366,11 +223,4 @@ Use xref:reference/functions-procedures.adoc#ai-text-embed-providers[`ai.text.em
 | `defaultConfig` | `MAP` | The default values for the GenAI provider.
 |===
 
-.Example
-[source,cypher]
-----
-// Legacy callable, deprecated in Cypher 25. Prefer ai.text.embed.providers().
-CALL genai.vector.listEncodingProviders()
-YIELD name, requiredConfigType, optionalConfigType, defaultConfig
-RETURN name, requiredConfigType, optionalConfigType, defaultConfig;
-----
+For current provider details and examples, see xref:embeddings.adoc#providers[Embeddings -> Providers].
