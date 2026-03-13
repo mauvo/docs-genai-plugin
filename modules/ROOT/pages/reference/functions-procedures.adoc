@@ -1,11 +1,12 @@
 = Functions and procedures
 
-Functions and procedures are different Cypher features: functions are used inside expressions and evaluate to a value, while procedures are invoked with CALL. 
-For details, see the Neo4j documentation on Functions and CALL procedure.
-For more information, see link:https://neo4j.com/docs/cypher-manual/current/functions/[Cypher Manual -> Functions] and link:https://neo4j.com/docs/cypher-manual/current/clauses/call/[Cypher Manual -> CALL procedure].
+[NOTE]
+Functions and procedures are different Cypher features: _functions_ are used inside expressions and evaluate to a value, whereas _procedures_ are invoked with `CALL`.
+For more information, see link:https://neo4j.com/docs/cypher-manual/current/functions/[Cypher -> Functions] and link:https://neo4j.com/docs/cypher-manual/current/clauses/call/[Cypher -> CALL procedure].
 
-Some functions and procedures are available only in Cypher 25. 
-If your database’s default language is Cypher 5, prepend the query with CYPHER 25 to override the default for that query; see link:https://neo4j.com/docs/cypher-manual/current/queries/select-version/[Cypher Manual -> Select Cypher version].
+[IMPORTANT]
+Most GenAI features are available only in Cypher 25.
+If your database's default language is Cypher 5, prepend the query with `CYPHER 25` to override the default for that query (see link:https://neo4j.com/docs/cypher-manual/current/queries/select-version/[Cypher -> Select Cypher version]).
 
 [[ai-text-completion]]
 [role=label--function label--new-2025.11 label--Cypher-25]

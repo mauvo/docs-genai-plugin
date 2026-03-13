@@ -15,6 +15,10 @@ To use the plugin's features, you need an account and API credentials from one o
 **On self-managed instances**, you install the plugin by moving the `neo4j-genai.jar` file from `<NEO4J_HOME>/products` to `<NEO4J_HOME>/plugins`, or, if you are using Docker, by starting the Docker container with the extra parameter `--env NEO4J_PLUGINS='["genai"]'`.
 For more information, see link:{neo4j-docs-base-uri}/operations-manual/current/configuration/plugins/[Operations Manual -> Configure plugins].
 
+[IMPORTANT]
+Most GenAI features are available only in Cypher 25.
+If your database's default language is Cypher 5, prepend the query with `CYPHER 25` to override the default for that query (see link:https://neo4j.com/docs/cypher-manual/current/queries/select-version/[Cypher -> Select Cypher version]).
+
 
 [[setup]]
 == Environment setup
