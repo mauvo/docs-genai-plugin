@@ -48,6 +48,9 @@ However, if the function call is misspelled or the query is otherwise malformed,
 This function sends one API request every time it is called, which may result in a lot of overhead in terms of both network traffic and latency.
 If you want to generate many embeddings at once, use xref:multiple-embeddings[].
 
+The examples below use the recommendations dataset described in xref:index.adoc#setup[Environment setup].
+Choose the tab that matches the setup you selected there.
+
 [.tabbed-example]
 ====
 [.include-with-Store-embedding-as-a-vector]
@@ -89,9 +92,7 @@ RETURN m.embedding AS embedding
 ======
 
 `ai.text.embed()` returns a link:https://neo4j.com/docs/cypher-manual/25/values-and-types/vector/[`VECTOR`], which can be converted into a list with link:https://neo4j.com/docs/cypher-manual/25/functions/list/#functions-tofloatlist[`toFloatList()`].
-
-[NOTE]
-To run this workflow on Community Edition, you need to use link:https://github.com/neo4j-graph-examples/recommendations/raw/main/data/recommendations-5.26.dump[this dump file] (storage format `aligned`).
+Use this compatibility workflow on Community Edition or on databases that use aligned format.
 
 .Create a `LIST<FLOAT>` embedding property for the Godfather
 [source,cypher]
@@ -240,9 +241,8 @@ For an alternative method more suitable to processing large amounts of data, see
 ======
 
 `ai.text.embedBatch()` returns a `VECTOR` for each input resource, which can be converted into a list with link:https://neo4j.com/docs/cypher-manual/25/functions/list/#functions-tofloatlist[`toFloatList()`].
-
-[NOTE]
-To run these workflows on Community Edition, you need to use link:https://github.com/neo4j-graph-examples/recommendations/raw/main/data/recommendations-5.26.dump[this dump file] (storage format `aligned`).
+These compatibility workflows store embeddings as `LIST<FLOAT>` properties.
+Use them on Community Edition, or whenever you prefer list-based storage over native `VECTOR` properties.
 
 .Create embeddings from a limited number of properties and store them as `LIST<FLOAT>` properties
 [source, cypher]
