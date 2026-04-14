@@ -53,10 +53,8 @@ Choose the tab that matches the setup you selected there.
 
 [.tabbed-example]
 ====
-[.include-with-Store-embedding-as-a-vector]
+[.include-with-Enterprise-Edition-or-Aura]
 ======
-label:enteprise-edition[]
-
 `ai.text.embed()` returns a link:https://neo4j.com/docs/cypher-manual/25/values-and-types/vector/[`VECTOR`].
 Storing `VECTOR` values on self-managed instances requires Enterprise Edition and link:{neo4j-docs-base-uri}/operations-manual/current/database-internals/store-formats/#store-format-overview[block format].
 
@@ -88,9 +86,8 @@ RETURN m.embedding AS embedding
 ======
 
 
-[.include-with-Store-embedding-as-a-list]
+[.include-with-Community-Edition]
 ======
-
 `ai.text.embed()` returns a link:https://neo4j.com/docs/cypher-manual/25/values-and-types/vector/[`VECTOR`], which can be converted into a list with link:https://neo4j.com/docs/cypher-manual/25/functions/list/#functions-tofloatlist[`toFloatList()`].
 Use this compatibility workflow on Community Edition or on databases that use aligned format.
 
@@ -178,10 +175,8 @@ If a resource is larger than the specified `maxBatchSize`, it must be chunked ma
 
 [.tabbed-example]
 ====
-[.include-with-Store-embeddings-as-vectors]
+[.include-with-Enterprise-Edition-or-Aura]
 ======
-label:enterprise-edition[]
-
 `ai.text.embedBatch()` returns a `VECTOR` for each input resource.
 Storing `VECTOR` values on an on-prem instance requires Enterprise Edition and link:{neo4j-docs-base-uri}/operations-manual/current/database-internals/store-formats/#store-format-overview[block format].
 
@@ -237,9 +232,8 @@ For an alternative method more suitable to processing large amounts of data, see
 ======
 
 
-[.include-with-Store-embeddings-as-lists]
+[.include-with-Community-Edition]
 ======
-
 `ai.text.embedBatch()` returns a `VECTOR` for each input resource, which can be converted into a list with link:https://neo4j.com/docs/cypher-manual/25/functions/list/#functions-tofloatlist[`toFloatList()`].
 These compatibility workflows store embeddings as `LIST<FLOAT>` properties.
 Use them on Community Edition, or whenever you prefer list-based storage over native `VECTOR` properties.
